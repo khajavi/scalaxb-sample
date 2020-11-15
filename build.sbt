@@ -1,8 +1,9 @@
-
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.0.6"
 lazy val scalaParser = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.6"
 lazy val dispatchV = "0.12.0"
 lazy val dispatch = "net.databinder.dispatch" %% "dispatch-core" % dispatchV
+lazy val scalacheck = "org.scalacheck" %% "scalacheck" % "1.14.1"
+lazy val scalachecktoolbox = "com.47deg" %% "scalacheck-toolbox-datetime"    % "0.4.0"
 
 lazy val root = (project in file(".")).
   enablePlugins(ScalaxbPlugin).
@@ -12,7 +13,7 @@ lazy val root = (project in file(".")).
   ))).
   settings(
     name          := "scalaxb-sample",
-    libraryDependencies ++= Seq(dispatch),
+    libraryDependencies ++= Seq(dispatch, scalacheck, scalachecktoolbox),
     libraryDependencies ++= {
       if (scalaVersion.value startsWith "2.10") Seq()
       else Seq(scalaXml, scalaParser)
@@ -22,7 +23,6 @@ lazy val root = (project in file(".")).
     scalaxbPackageName in (Compile, scalaxb)     := "generated",
     // scalaxbPackageNames in (Compile, scalaxb)    := Map(uri("http://schemas.microsoft.com/2003/10/Serialization/") -> "microsoft.serialization"),
     // logLevel in (Compile, scalaxb) := Level.Debug
-      scalaxbUseJavaTime in (Compile, scalaxb) := true,
 //    scalaxbCapitalizeWords in (Compile, scalaxb) := true,
 //    scalaxbXsdSource in (Compile, scalaxb) := new File("xsd")
   )
